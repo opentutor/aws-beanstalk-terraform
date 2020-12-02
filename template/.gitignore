@@ -1,0 +1,9 @@
+.terraform
+*.tfstate*
+*__tfstate*
+*secret.*.tfvars
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+backend.tf
