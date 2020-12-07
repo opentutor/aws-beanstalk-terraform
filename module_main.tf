@@ -1,5 +1,5 @@
 provider "aws" {
-  region = var.region
+  region  = var.region
   profile = "opentutor"
 }
 
@@ -41,6 +41,8 @@ module "elastic_beanstalk_application" {
   description = "Test elastic_beanstalk_application"
 }
 
+data "aws_elastic_beanstalk_hosted_zone" "current" {}
+
 module "elastic_beanstalk_environment" {
   source                     = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-environment.git?ref=tags/0.31.0"
   namespace                  = var.namespace
@@ -52,8 +54,15 @@ module "elastic_beanstalk_environment" {
   description                = var.description
   region                     = var.region
   availability_zone_selector = var.availability_zone_selector
+  # NOTE: We would prefer for the DNS name 
+  # of module.elastic_beanstalk_environment
+  # to be staticly set via inputs,
+  # but have been running into other/different problems
+  # trying to get that to work 
+  # (for one thing, permissions error anytime try to set
+  # elastic_beanstalk_environment.dns_zone_id)
+  # dns_zone_id                = data.aws_elastic_beanstalk_hosted_zone.current.id
   # dns_zone_id                = var.dns_zone_id
-
   wait_for_ready_timeout             = var.wait_for_ready_timeout
   elastic_beanstalk_application_name = module.elastic_beanstalk_application.elastic_beanstalk_application_name
   environment_type                   = var.environment_type
@@ -109,5 +118,31 @@ data "aws_iam_policy_document" "minimal_s3_permissions" {
       "s3:GetBucketLocation"
     ]
     resources = ["*"]
+  }
+}
+
+
+# public cname/alias for the site
+# pull in the dns zone
+data "aws_route53_zone" "site_dns" {
+  name = "opentutor.info."
+}
+
+# create dns record of type "A"
+resource "aws_route53_record" "site_alias" {
+  zone_id         = "${data.aws_route53_zone.site_dns.zone_id}"
+  name            = "${data.aws_route53_zone.site_dns.name}"
+  type            = "A"
+  allow_overwrite = true
+  # create alias (required: name, zone_id)
+  alias {
+
+    # CURRENT PROBLEM: 
+    # module.elastic_beanstalk_environment.hostname
+    # is an output and doesn't seem to be populated 
+    # when this applies.
+    name                   = "${module.elastic_beanstalk_environment.hostname}"
+    zone_id                = "${data.aws_elastic_beanstalk_hosted_zone.current.id}"
+    evaluate_target_health = true
   }
 }
