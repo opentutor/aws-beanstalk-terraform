@@ -1,3 +1,7 @@
+# NOTE:
+# goal is to define terraform-opentutor-aws-beanstalk as a module
+# so all deployment-specific tfvars should then be separated out
+# to each deployment that uses the module
 region = "us-east-1"
 
 availability_zones = ["us-east-1a", "us-east-1b"]
@@ -67,7 +71,10 @@ elb_scheme = "public"
 solution_stack_name = "64bit Amazon Linux 2018.03 v2.23.0 running Multi-container Docker 19.03.6-ce (Generic)"
 version_label = ""
 
-dns_zone_id = "Z3SO0TKDDQ0RGG"
+# we shouldn't need to hardcode dns_zone_id
+# but in case we do,
+# the dns_zone_id for elastic beanstalk in region us-east-1 is below
+# dns_zone_id = "Z117KPS5GTRQ2G"
 
 // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 additional_settings = [
