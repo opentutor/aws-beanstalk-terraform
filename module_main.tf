@@ -128,6 +128,7 @@ data "aws_route53_zone" "site_dns" {
   name = "opentutor.info."
 }
 
+
 # create dns record of type "A"
 resource "aws_route53_record" "site_alias" {
   zone_id         = "${data.aws_route53_zone.site_dns.zone_id}"
@@ -141,7 +142,7 @@ resource "aws_route53_record" "site_alias" {
     # module.elastic_beanstalk_environment.hostname
     # is an output and doesn't seem to be populated 
     # when this applies.
-    name                   = "${module.elastic_beanstalk_environment.hostname}"
+    name                   = "${module.elastic_beanstalk_environment.endpoint}"
     zone_id                = "${data.aws_elastic_beanstalk_hosted_zone.current.id}"
     evaluate_target_health = true
   }
