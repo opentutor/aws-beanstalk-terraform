@@ -137,11 +137,6 @@ resource "aws_route53_record" "site_alias" {
   allow_overwrite = true
   # create alias (required: name, zone_id)
   alias {
-
-    # CURRENT PROBLEM: 
-    # module.elastic_beanstalk_environment.hostname
-    # is an output and doesn't seem to be populated 
-    # when this applies.
     name                   = "${module.elastic_beanstalk_environment.endpoint}"
     zone_id                = "${data.aws_elastic_beanstalk_hosted_zone.current.id}"
     evaluate_target_health = true
