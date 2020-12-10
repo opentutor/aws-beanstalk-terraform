@@ -67,6 +67,8 @@ module "elastic_beanstalk_environment" {
   elastic_beanstalk_application_name = module.elastic_beanstalk_application.elastic_beanstalk_application_name
   environment_type                   = var.environment_type
   loadbalancer_type                  = var.loadbalancer_type
+  loadbalancer_certificate_arn       = data.aws_acm_certificate.issued.arn
+  loadbalancer_ssl_policy            = "ELBSecurityPolicy-TLS-1-2-2017-01"
   elb_scheme                         = var.elb_scheme
   tier                               = var.tier
   version_label                      = var.version_label
@@ -121,7 +123,6 @@ data "aws_iam_policy_document" "minimal_s3_permissions" {
   }
 }
 
-
 # public cname/alias for the site
 # pull in the dns zone
 data "aws_route53_zone" "site_dns" {
@@ -137,14 +138,14 @@ data "aws_acm_certificate" "issued" {
 
 # create dns record of type "A"
 resource "aws_route53_record" "site_alias" {
-  zone_id         = "${data.aws_route53_zone.site_dns.zone_id}"
-  name            = "${data.aws_route53_zone.site_dns.name}"
+  zone_id         = data.aws_route53_zone.site_dns.zone_id
+  name            = data.aws_route53_zone.site_dns.name
   type            = "A"
   allow_overwrite = true
   # create alias (required: name, zone_id)
   alias {
-    name                   = "${module.elastic_beanstalk_environment.endpoint}"
-    zone_id                = "${data.aws_elastic_beanstalk_hosted_zone.current.id}"
+    name                   = module.elastic_beanstalk_environment.endpoint
+    zone_id                = data.aws_elastic_beanstalk_hosted_zone.current.id
     evaluate_target_health = true
   }
 }
