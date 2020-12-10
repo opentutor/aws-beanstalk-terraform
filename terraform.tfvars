@@ -96,3 +96,7 @@ additional_settings = [
 #   "DB_PASSWORD"     = "zzzzzzzzzzzzzzzzzzz"
 #   "ANOTHER_ENV_VAR" = "123456789"
 # 
+
+aws_acm_certificate_domain = "opentutor.info"
+
+aws_route53_zone_name = "opentutor.info."

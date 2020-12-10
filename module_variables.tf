@@ -203,3 +203,13 @@ variable "env_vars" {
   default     = {}
   description = "Map of custom ENV variables to be provided to the application running on Elastic Beanstalk, e.g. env_vars = { DB_USER = 'admin' DB_PASS = 'xxxxxx' }"
 }
+
+variable "aws_acm_certificate_domain" {
+  type        = string
+  description = "domain name to find ssl certificate"
+}
+
+variable "aws_route53_zone_name" {
+  type        = string
+  description = "name to find aws route53 zone, e.g. opentutor.info."
+}

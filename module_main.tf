@@ -125,7 +125,13 @@ data "aws_iam_policy_document" "minimal_s3_permissions" {
 # public cname/alias for the site
 # pull in the dns zone
 data "aws_route53_zone" "site_dns" {
-  name = "opentutor.info."
+  name = var.aws_route53_zone_name
+}
+
+# Find a certificate that is issued
+data "aws_acm_certificate" "issued" {
+  domain   = var.aws_acm_certificate_domain
+  statuses = ["ISSUED"]
 }
 
 
