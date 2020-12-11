@@ -6,8 +6,7 @@ remote_state {
   }
   config = {
     bucket = "opentutor-s3-state"
-
-    key = "${path_relative_to_include()}/terraform.tfstate"
+    key = "opentutor/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
     dynamodb_table = "opentutor-s3-state-locks"
