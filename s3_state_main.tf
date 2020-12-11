@@ -34,14 +34,3 @@ resource "aws_dynamodb_table" "terraform_locks" {
     type = "S"
   }
 }
-
-terraform {
-  # unfortunately, vars not allowed in terraform blocks...
-  backend "s3" {
-    bucket         = "opentutor-s3-state"
-    key            = "global/s3/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "opentutor-s3-state-locks"
-    encrypt        = true
-  }
-}
