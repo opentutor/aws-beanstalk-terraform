@@ -213,3 +213,9 @@ variable "aws_route53_zone_name" {
   type        = string
   description = "name to find aws route53 zone, e.g. opentutor.info."
 }
+
+variable "elastic_beanstalk_environment_keypair" {
+  type        = string
+  description = "key pair for ssh access (only for debugging and/or when application is in public subnet)"
+  default     = ""
+}
