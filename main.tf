@@ -90,9 +90,9 @@ module "elastic_beanstalk_environment" {
 
   vpc_id                  = module.vpc.vpc_id
   loadbalancer_subnets    = module.subnets.public_subnet_ids
-  // application_subnets            = module.subnets.private_subnet_ids
   # TODO change subnets for efs back to private after debugging
-  application_subnets     = module.subnets.public_subnet_ids
+  // application_subnets     = module.subnets.public_subnet_ids
+  application_subnets     = module.subnets.private_subnet_ids
   allowed_security_groups = [module.vpc.vpc_default_security_group_id]
   # NOTE: will only work for direct ssh
   # if keypair exists and application_subnets above is public subnet
@@ -162,9 +162,9 @@ module "efs" {
   name               = var.name
   region             = var.region
   vpc_id             = module.vpc.vpc_id
-  // subnets            = module.subnets.private_subnet_ids
   # TODO change subnets for efs back to private after debugging
-  subnets            = module.subnets.public_subnet_ids
+  // subnets            = module.subnets.public_subnet_ids
+  subnets            = module.subnets.private_subnet_ids
   security_groups    = [module.vpc.vpc_default_security_group_id]
   // zone_id            = data.aws_elastic_beanstalk_hosted_zone.current.id
   // context = module.this.context

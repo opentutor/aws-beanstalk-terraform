@@ -68,15 +68,7 @@ elb_scheme = "public"
 // https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html
 // https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.docker
 # solution_stack_name = "64bit Amazon Linux 2018.03 v2.12.17 running Docker 18.06.1-ce"
-solution_stack_name = "64bit Amazon Linux 2018.03 v2.24.0 running Multi-container Docker 19.03.13-ce (Generic)
-
-2018.03.0
-
-19.03.13-ce
-
-1.47.0
-
-"
+solution_stack_name = "64bit Amazon Linux 2018.03 v2.24.0 running Multi-container Docker 19.03.13-ce (Generic)"
 version_label = ""
 
 # we shouldn't need to hardcode dns_zone_id

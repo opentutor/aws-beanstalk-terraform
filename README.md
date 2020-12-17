@@ -5,12 +5,15 @@ Terraform module creates infrastructure for an opentutor Elastic Beanstalk deplo
 TODO:
 
  - [x] creates/destroys beanstalk infra that runs app
- - [ ] ensure all features working (home page)
- - [ ] ensure all features working (online training)
+ - [ ] upgrade to v2 (home page and login)
+ - [x] ensure all features working (online training)
+ - [ ] document terraform output efs-file-id issue
+ - [ ] needs a train-all option for upgrades (e.g. Adv Teachers)
+ - [ ] default model sep from online-trained
  - [x] stores tf state in an S3 bucket
  - [x] configurable for CNAME, e.g. opentutor.org
  - [x] SSL support (https://opentutor.org)
- - [ ] instances use shared EFS mount for online-trained models
+ - [x] instances use shared EFS mount for online-trained models
  - [ ] functions as a terraform module, where actual deployments just include the module
 
  ## Required Software
