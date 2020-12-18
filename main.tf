@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = var.aws_region
+  region  = var.region
 }
 
 module "vpc" {
@@ -51,7 +51,7 @@ module "elastic_beanstalk_environment" {
   tags                       = var.eb_env_tags
   delimiter                  = var.eb_env_delimiter
   description                = var.eb_env_description
-  region                     = var.aws_region
+  region                     = var.region
   availability_zone_selector = var.eb_env_availability_zone_selector
   # NOTE: We would prefer for the DNS name 
   # of module.elastic_beanstalk_environment
@@ -159,7 +159,7 @@ module "efs" {
   namespace          = var.eb_env_namespace
   stage              = var.eb_env_stage
   name               = var.eb_env_name
-  region             = var.aws_region
+  region             = var.region
   vpc_id             = module.vpc.vpc_id
   subnets            = module.subnets.private_subnet_ids
   security_groups    = [module.vpc.vpc_default_security_group_id]

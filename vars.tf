@@ -8,7 +8,7 @@ variable "aws_availability_zones" {
   description = "List of availability zones"
 }
 
-variable "aws_region" {
+variable "region" {
   type        = string
   description = "AWS region"
 }
@@ -164,8 +164,6 @@ variable "eb_env_keypair" {
   description = "key pair for ssh access (only for debugging and/or when application is in public subnet)"
   default     = ""
 }
-
-
 
 variable "eb_env_loadbalancer_ssl_policy" {
   type        = string
