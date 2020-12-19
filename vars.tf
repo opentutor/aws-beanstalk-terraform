@@ -8,7 +8,7 @@ variable "aws_availability_zones" {
   description = "List of availability zones"
 }
 
-variable "region" {
+variable "aws_region" {
   type        = string
   description = "AWS region"
 }

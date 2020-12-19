@@ -17,7 +17,7 @@ init: terragrunt
 
 .PHONY: apply
 apply: .terraform
-	terragrunt apply
+	terragrunt apply --terragrunt-debug
 
 .PHONY: output-%
 tf-output-%: .terraform

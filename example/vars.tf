@@ -8,6 +8,11 @@ variable "aws_availability_zones" {
   description = "List of availability zones"
 }
 
+variable "aws_region" {
+  type        = string
+  description = "AWS region"
+}
+
 variable "aws_route53_zone_name" {
   type        = string
   description = "name to find aws route53 zone, e.g. opentutor.info."
@@ -30,7 +35,3 @@ variable "eb_env_stage" {
   default     = "test"
 }
 
-variable "region" {
-  type        = string
-  description = "AWS region"
-}
