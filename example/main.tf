@@ -9,5 +9,5 @@ module "opentutor_beanstalk_deployment" {
     eb_env_env_vars                 = var.eb_env_env_vars
     eb_env_namespace                = var.eb_env_namespace
     eb_env_stage                    = var.eb_env_stage
-    region                          = var.region
+    region                          = "us-east-1"
 }
