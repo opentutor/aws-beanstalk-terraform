@@ -15,3 +15,8 @@ module "opentutor_beanstalk_deployment" {
     eb_env_namespace                = var.eb_env_namespace
     eb_env_stage                    = var.eb_env_stage
 }
+
+output "efs_file_system_id" {
+  description = "id for the efs file system (use to mount from beanstalk)"
+  value       = module.opentutor_beanstalk_deployment.efs_file_system_id
+}
