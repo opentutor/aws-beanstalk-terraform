@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.16.1"
+  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.18.2"
   namespace  = var.eb_env_namespace
   stage      = var.eb_env_stage
   name       = var.eb_env_name
@@ -14,7 +14,7 @@ module "vpc" {
 }
 
 module "subnets" {
-  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.26.0"
+  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.34.0"
   availability_zones   = var.aws_availability_zones
   namespace            = var.eb_env_namespace
   stage                = var.eb_env_stage
@@ -30,7 +30,7 @@ module "subnets" {
 }
 
 module "elastic_beanstalk_application" {
-  source      = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-application.git?ref=tags/0.7.1"
+  source      = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-application.git?ref=tags/0.9.0"
   namespace   = var.eb_env_namespace
   stage       = var.eb_env_stage
   name        = var.eb_env_name
@@ -43,7 +43,7 @@ module "elastic_beanstalk_application" {
 data "aws_elastic_beanstalk_hosted_zone" "current" {}
 
 module "elastic_beanstalk_environment" {
-  source                     = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-environment.git?ref=tags/0.31.0"
+  source                     = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-environment.git?ref=tags/0.32.1"
   namespace                  = var.eb_env_namespace
   stage                      = var.eb_env_stage
   name                       = var.eb_env_name
@@ -155,7 +155,7 @@ resource "aws_route53_record" "site_alias" {
 }
 
 module "efs" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.22.0"
+  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.26.1"
   namespace          = var.eb_env_namespace
   stage              = var.eb_env_stage
   name               = var.eb_env_name
