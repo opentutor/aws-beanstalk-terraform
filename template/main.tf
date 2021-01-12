@@ -3,10 +3,9 @@ provider "aws" {
 }
 
 module "opentutor_beanstalk_deployment" {
-    # really source should be something like
-    # the below, swapping "SOME.TAGGED.VERSION" for a real version tag
-    # source      = "git::https://github.com/opentutor/terraform-opentutor-aws-beanstalk.git?ref=tags/SOME.TAGGED.VERSION"
-    source      = "./.."
+    # change the tag below as needed
+    # or use source="./.." for local dev
+    source      = "git::https://github.com/opentutor/terraform-opentutor-aws-beanstalk?ref=tags/0.1.0"
     aws_acm_certificate_domain      = var.aws_acm_certificate_domain
     aws_availability_zones          = var.aws_availability_zones
     aws_region                      = var.aws_region

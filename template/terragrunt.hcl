@@ -5,10 +5,10 @@ remote_state {
     if_exists = "overwrite_terragrunt"
   }
   config = {
-    bucket          = "opentutor-s3-state"
+    bucket          = "<your_s3_bucket_name, e.g. MY_APP_NAME-s3-state>"
     key             = "opentutor/terraform.tfstate"
-    region          = "us-east-1"
+    region          = "<your_aws_region, e.g. us-east-1>"
     encrypt         = true
-    dynamodb_table  = "opentutor-s3-state-locks"
+    dynamodb_table  = "<your_lock_table_name, e.g. MY_APP_NAME-s3-state-locks>"
   }
 }
