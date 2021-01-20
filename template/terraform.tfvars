@@ -15,3 +15,7 @@ eb_env_namespace = "<a namespace>"
 
 # name of stage, e.g 'test' or 'dev' or 'prod'
 eb_env_stage = "<stage name>"
+
+# the non-secret google client id that configure google auth
+# https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid
+google_client_id = "<your client id>"

@@ -35,3 +35,12 @@ variable "eb_env_stage" {
   default     = "test"
 }
 
+variable "google_client_id" {
+  type        = string
+  description = "google client id for google auth (https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid)"
+}
+
+variable "secret_mongo_uri" {
+  type        = string
+  description = "fully qualified mongo uri (includes user and password) for connections to a mongodb instance backend (presumably external, e.g. mongodb.com)"
+}

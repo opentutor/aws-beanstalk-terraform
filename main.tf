@@ -113,7 +113,13 @@ module "elastic_beanstalk_environment" {
   solution_stack_name = var.eb_env_solution_stack_name
 
   additional_settings = var.eb_env_additional_settings
-  env_vars            = var.eb_env_env_vars
+  env_vars            = merge(
+                          var.eb_env_env_vars,
+                          {
+                            GOOGLE_CLIENT_ID=var.google_client_id,
+                            MONGO_URI=var.secret_mongo_uri
+                          }
+                        )
 
   extended_ec2_policy_document = data.aws_iam_policy_document.minimal_s3_permissions.json
   prefer_legacy_ssm_policy     = false

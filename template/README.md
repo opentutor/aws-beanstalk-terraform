@@ -62,7 +62,7 @@ Once `Developer` has required external software, domains, certs, etc in hand, fo
 
 - edit `terragrunt.hcl` with config details for your site
 
-- rename `scret.auto.tfvars` to `secret.auto.tfvars` (so it will be .gitignored) and configure the secrets
+- rename `scret.auto.tfvars` to `secret.auto.tfvars` (so it will be .gitignored) and configure the secrets. Secret management is external (e.g. maybe secrets were shared via 1password)
 
 - Put in whatever best form to share with `AWS Admin`, e.g. branch, Pull Request and Request Review in gitub
 
