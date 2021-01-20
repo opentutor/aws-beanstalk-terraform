@@ -13,6 +13,8 @@ module "opentutor_beanstalk_deployment" {
     eb_env_env_vars                 = var.eb_env_env_vars
     eb_env_namespace                = var.eb_env_namespace
     eb_env_stage                    = var.eb_env_stage
+    google_client_id                = var.google_client_id
+    secret_mongo_uri                = var.secret_mongo_uri
 }
 
 output "efs_file_system_id" {
