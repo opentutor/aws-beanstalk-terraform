@@ -19,3 +19,6 @@ eb_env_stage = "<stage name>"
 # the non-secret google client id that configure google auth
 # https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid
 google_client_id = "<your client id>"
+
+# public domain name of site, e.g. opentutor.yourdomain.com
+site_domain_name = "<site-domain-name>"

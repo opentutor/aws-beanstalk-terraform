@@ -148,11 +148,14 @@ data "aws_acm_certificate" "issued" {
   statuses = ["ISSUED"]
 }
 
+data "aws_route53_zone" "main" {
+  name = var.aws_route53_zone_name
+}
 
 # create dns record of type "A"
-resource "aws_route53_record" "site_alias" {
-  zone_id         = data.aws_route53_zone.site_dns.zone_id
-  name            = data.aws_route53_zone.site_dns.name
+resource "aws_route53_record" "site_domain_name" {
+  zone_id         = data.aws_route53_zone.main.zone_id
+  name            = var.site_domain_name
   type            = "A"
   allow_overwrite = true
   # create alias (required: name, zone_id)

@@ -15,6 +15,7 @@ module "opentutor_beanstalk_deployment" {
     eb_env_stage                    = var.eb_env_stage
     google_client_id                = var.google_client_id
     secret_mongo_uri                = var.secret_mongo_uri
+    site_domain_name                = var.site_domain_name
 }
 
 output "efs_file_system_id" {
