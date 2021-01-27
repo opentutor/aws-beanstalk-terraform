@@ -221,7 +221,7 @@ variable "eb_env_root_volume_type" {
 variable "eb_env_solution_stack_name" {
   type        = string
   description = "Elastic Beanstalk stack, e.g. Docker, Go, Node, Java, IIS. For more info, see https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html"
-  default     = "64bit Amazon Linux 2018.03 v2.24.0 running Multi-container Docker 19.03.13-ce (Generic)"
+  default     = "64bit Amazon Linux 2018.03 v2.24.1 running Multi-container Docker 19.03.13-ce (Generic)"
 }
 
 variable "eb_env_stage" {
