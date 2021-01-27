@@ -10,11 +10,11 @@ module "vpc" {
   attributes = var.eb_env_attributes
   tags       = var.eb_env_tags
   delimiter  = var.eb_env_delimiter
-  cidr_block = "172.16.0.0/16"
+  cidr_block = var.vpc_cidr_block
 }
 
 module "subnets" {
-  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.34.0"
+  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.36.0"
   availability_zones   = var.aws_availability_zones
   namespace            = var.eb_env_namespace
   stage                = var.eb_env_stage
@@ -43,7 +43,7 @@ module "elastic_beanstalk_application" {
 data "aws_elastic_beanstalk_hosted_zone" "current" {}
 
 module "elastic_beanstalk_environment" {
-  source                     = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-environment.git?ref=tags/0.32.1"
+  source                     = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-environment.git?ref=tags/0.34.0"
   namespace                  = var.eb_env_namespace
   stage                      = var.eb_env_stage
   name                       = var.eb_env_name
@@ -123,6 +123,7 @@ module "elastic_beanstalk_environment" {
 
   extended_ec2_policy_document = data.aws_iam_policy_document.minimal_s3_permissions.json
   prefer_legacy_ssm_policy     = false
+  s3_bucket_mfa_delete         = false
 }
 
 data "aws_iam_policy_document" "minimal_s3_permissions" {
@@ -167,7 +168,7 @@ resource "aws_route53_record" "site_domain_name" {
 }
 
 module "efs" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.26.1"
+  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.27.0"
   namespace          = var.eb_env_namespace
   stage              = var.eb_env_stage
   name               = var.eb_env_name
