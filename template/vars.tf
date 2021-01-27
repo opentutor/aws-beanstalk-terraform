@@ -47,5 +47,11 @@ variable "secret_mongo_uri" {
 
 variable "site_domain_name" {
   type        = string
-  description = "the public domain name for this site, e.g. dev.mentorpal.org"
+  description = "the public domain name for this site, e.g. opentutor.yoursite.org"
+}
+
+variable "vpc_cidr_block" {
+  type        = string
+  description = "cidr for the vpc, generally can leave the default unless there is conflict"
+  default     = "10.7.0.0/16"
 }
