@@ -18,11 +18,6 @@ variable "aws_route53_zone_name" {
   description = "name to find aws route53 zone, e.g. opentutor.info."
 }
 
-# variable "dns_zone_id" {
-#   type        = string
-#   description = "Route53 parent zone ID. The module will create sub-domain DNS record in the parent zone for the EB environment"
-# }
-
 variable "eb_env_additional_settings" {
   type = list(object({
     namespace = string
@@ -216,12 +211,6 @@ variable "eb_env_root_volume_type" {
   type        = string
   description = "The type of the EBS root volume"
   default     = "gp2"
-}
-
-variable "eb_env_solution_stack_name" {
-  type        = string
-  description = "Elastic Beanstalk stack, e.g. Docker, Go, Node, Java, IIS. For more info, see https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html"
-  default     = "64bit Amazon Linux 2018.03 v2.24.0 running Multi-container Docker 19.03.13-ce (Generic)"
 }
 
 variable "eb_env_stage" {

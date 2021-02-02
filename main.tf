@@ -42,6 +42,11 @@ module "elastic_beanstalk_application" {
 
 data "aws_elastic_beanstalk_hosted_zone" "current" {}
 
+data "aws_elastic_beanstalk_solution_stack" "multi_docker" {
+  most_recent = true
+  name_regex = "^64bit Amazon Linux (.*) Multi-container Docker (.*)$"
+}
+
 module "elastic_beanstalk_environment" {
   source                     = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-environment.git?ref=tags/0.34.0"
   namespace                  = var.eb_env_namespace
@@ -72,11 +77,9 @@ module "elastic_beanstalk_environment" {
   tier                               = "WebServer"
   version_label                      = var.eb_env_version_label
   force_destroy                      = var.eb_env_log_bucket_force_destroy
-
-  instance_type    = var.eb_env_instance_type
-  root_volume_size = var.eb_env_root_volume_size
-  root_volume_type = var.eb_env_root_volume_type
-
+  instance_type                      = var.eb_env_instance_type
+  root_volume_size                   = var.eb_env_root_volume_size
+  root_volume_type                   = var.eb_env_root_volume_type
   autoscale_min             = var.eb_env_autoscale_min
   autoscale_max             = var.eb_env_autoscale_max
   autoscale_measure_name    = var.eb_env_autoscale_measure_name
@@ -110,7 +113,7 @@ module "elastic_beanstalk_environment" {
 
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html
   // https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.docker
-  solution_stack_name = var.eb_env_solution_stack_name
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.multi_docker.name
 
   additional_settings = var.eb_env_additional_settings
   env_vars            = merge(
