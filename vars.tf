@@ -151,7 +151,7 @@ variable "eb_env_healthcheck_url" {
 variable "eb_env_instance_type" {
   type        = string
   description = "Instances type"
-  default     = "t3.xlarge"  # between all the microservices needs at least 16GB memory
+  default     = "r6g.large"  # between all the microservices needs at least 16GB memory
 }
 
 variable "eb_env_keypair" {
