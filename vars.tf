@@ -151,7 +151,7 @@ variable "eb_env_healthcheck_url" {
 variable "eb_env_instance_type" {
   type        = string
   description = "Instances type"
-  default     = "r6g.large"  # between all the microservices needs at least 16GB memory
+  default     = "t3.xlarge"  # between all the microservices needs at least 16GB memory
 }
 
 variable "eb_env_keypair" {
@@ -252,6 +252,16 @@ variable "eb_env_updating_min_in_service" {
 variable "google_client_id" {
   type        = string
   description = "google client id for google auth (https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid)"
+}
+
+variable "secret_api_secret" {
+  type        = string
+  description = "an arbitrary secret shared among services to allow admin access in inter-service graphql requests"
+}
+
+variable "secret_jwt_secret" {
+  type        = string
+  description = "an arbitrary secret shared among services to encode/decode jwt tokens"
 }
 
 variable "secret_mongo_uri" {
