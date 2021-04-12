@@ -183,3 +183,28 @@ module "efs" {
     module.elastic_beanstalk_environment.security_group_id
   ]
 }
+
+
+# find the HTTP load-balancer listener, so we can redirect to HTTPS
+data "aws_lb_listener" "http_listener" {
+  load_balancer_arn = module.elastic_beanstalk_environment.load_balancers[0]
+  port              = 80
+}
+
+# set the HTTP -> HTTPS redirect rule for any request matching site domain
+resource "aws_lb_listener_rule" "redirect_http_to_https" {
+  listener_arn = data.aws_lb_listener.http_listener.arn
+  action {
+    type = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+  condition {
+    host_header {
+      values = [var.site_domain_name]
+    }
+  }
+}
