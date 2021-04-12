@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.18.2"
+  source     = "git::https://github.com/cloudposse/terraform-aws-vpc.git?ref=tags/0.21.0"
   namespace  = var.eb_env_namespace
   stage      = var.eb_env_stage
   name       = var.eb_env_name
@@ -14,7 +14,7 @@ module "vpc" {
 }
 
 module "subnets" {
-  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.36.0"
+  source               = "git::https://github.com/cloudposse/terraform-aws-dynamic-subnets.git?ref=tags/0.37.6"
   availability_zones   = var.aws_availability_zones
   namespace            = var.eb_env_namespace
   stage                = var.eb_env_stage
@@ -30,7 +30,7 @@ module "subnets" {
 }
 
 module "elastic_beanstalk_application" {
-  source      = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-application.git?ref=tags/0.9.0"
+  source      = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-application.git?ref=tags/0.11.0"
   namespace   = var.eb_env_namespace
   stage       = var.eb_env_stage
   name        = var.eb_env_name
@@ -48,7 +48,7 @@ data "aws_elastic_beanstalk_solution_stack" "multi_docker" {
 }
 
 module "elastic_beanstalk_environment" {
-  source                     = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-environment.git?ref=tags/0.34.0"
+  source                     = "git::https://github.com/cloudposse/terraform-aws-elastic-beanstalk-environment.git?ref=tags/0.37.0"
   namespace                  = var.eb_env_namespace
   stage                      = var.eb_env_stage
   name                       = var.eb_env_name
@@ -119,14 +119,15 @@ module "elastic_beanstalk_environment" {
   env_vars            = merge(
                           var.eb_env_env_vars,
                           {
+                            API_SECRET=var.secret_api_secret,
                             GOOGLE_CLIENT_ID=var.google_client_id,
+                            JWT_SECRET=var.secret_jwt_secret,
                             MONGO_URI=var.secret_mongo_uri
                           }
                         )
 
   extended_ec2_policy_document = data.aws_iam_policy_document.minimal_s3_permissions.json
   prefer_legacy_ssm_policy     = false
-  s3_bucket_mfa_delete         = false
 }
 
 data "aws_iam_policy_document" "minimal_s3_permissions" {
