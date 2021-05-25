@@ -6,7 +6,7 @@ module "opentutor_beanstalk_deployment" {
     # change the tag below as needed
     # or use source="./.." for local dev
     # MAKE SURE USING LATEST VERSION/TAG IN YOURS
-    source      = "git::https://github.com/opentutor/aws-beanstalk-terraform?ref=tags/2.1.0"
+    source      = "git::https://github.com/opentutor/aws-beanstalk-terraform?ref=tags/2.3.0"
     aws_acm_certificate_domain      = var.aws_acm_certificate_domain
     aws_availability_zones          = var.aws_availability_zones
     aws_region                      = var.aws_region
