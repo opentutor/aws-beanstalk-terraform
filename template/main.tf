@@ -6,7 +6,7 @@ module "opentutor_beanstalk_deployment" {
     # change the tag below as needed
     # or use source="./.." for local dev
     # MAKE SURE USING LATEST VERSION/TAG IN YOURS
-    source      = "git::https://github.com/opentutor/aws-beanstalk-terraform?ref=tags/2.3.0"
+    source      = "./.."
     aws_acm_certificate_domain      = var.aws_acm_certificate_domain
     aws_availability_zones          = var.aws_availability_zones
     aws_region                      = var.aws_region
@@ -16,8 +16,8 @@ module "opentutor_beanstalk_deployment" {
     eb_env_stage                    = var.eb_env_stage
     eb_env_version_label            = var.eb_env_version_label
     google_client_id                = var.google_client_id
-    secret_api_secret                = var.secret_api_secret
-    secret_jwt_secret                = var.secret_jwt_secret
+	secret_api_key                  = var.secret_api_key
+    secret_jwt_key                  = var.secret_jwt_key
     secret_mongo_uri                = var.secret_mongo_uri
     site_domain_name                = var.site_domain_name
     vpc_cidr_block                  = var.vpc_cidr_block
@@ -71,12 +71,12 @@ variable "google_client_id" {
   description = "google client id for google auth (https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid)"
 }
 
-variable "secret_api_secret" {
+variable "secret_api_key" {
   type        = string
   description = "an arbitrary secret shared among services to allow admin access in inter-service graphql requests"
 }
 
-variable "secret_jwt_secret" {
+variable "secret_jwt_key" {
   type        = string
   description = "an arbitrary secret shared among services to encode/decode jwt tokens"
 }

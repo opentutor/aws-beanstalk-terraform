@@ -26,17 +26,17 @@ variable "eb_env_additional_settings" {
   }))
 
   description = "Additional Elastic Beanstalk setttings. For full list of options, see https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html"
-  default     = [
-      {
-        namespace = "aws:elasticbeanstalk:environment:process:default"
-        name      = "StickinessEnabled"
-        value     = "false"
-      },
-      {
-        namespace = "aws:elasticbeanstalk:managedactions"
-        name      = "ManagedActionsEnabled"
-        value     = "false"
-      }
+  default = [
+    {
+      namespace = "aws:elasticbeanstalk:environment:process:default"
+      name      = "StickinessEnabled"
+      value     = "false"
+    },
+    {
+      namespace = "aws:elasticbeanstalk:managedactions"
+      name      = "ManagedActionsEnabled"
+      value     = "false"
+    }
   ]
 }
 
@@ -121,7 +121,7 @@ variable "eb_env_delimiter" {
 variable "eb_env_description" {
   type        = string
   description = "Short description of the Environment"
-  default     = "Opentutor Elastic Beanstalk env"
+  default     = "opentutor Elastic Beanstalk env"
 }
 
 variable "eb_env_elb_scheme" {
@@ -145,13 +145,13 @@ variable "eb_env_env_vars" {
 variable "eb_env_healthcheck_url" {
   type        = string
   description = "Application Health Check URL. Elastic Beanstalk will call this URL to check the health of the application running on EC2 instances"
-  default     = "/" 
+  default     = "/"
 }
 
 variable "eb_env_instance_type" {
   type        = string
   description = "Instances type"
-  default     = "t3.xlarge"  # between all the microservices needs at least 16GB memory
+  default     = "t3.xlarge" # between all the microservices needs at least 16GB memory
 }
 
 variable "eb_env_keypair" {
@@ -176,6 +176,42 @@ variable "eb_env_log_bucket_force_destroy" {
   type        = bool
   description = "Force destroy the S3 bucket for load balancer logs"
   default     = true
+}
+
+variable "eb_env_enable_stream_logs" {
+  type        = bool
+  default     = false
+  description = "Whether to create groups in CloudWatch Logs for proxy and deployment logs, and stream logs from each instance in your environment"
+}
+
+variable "eb_env_logs_delete_on_terminate" {
+  type        = bool
+  default     = false
+  description = "Whether to delete the log groups when the environment is terminated. If false, the logs are kept RetentionInDays days"
+}
+
+variable "eb_env_logs_retention_in_days" {
+  type        = number
+  default     = 30
+  description = "The number of days to keep log events before they expire."
+}
+
+variable "eb_env_health_streaming_enabled" {
+  type        = bool
+  default     = false
+  description = "For environments with enhanced health reporting enabled, whether to create a group in CloudWatch Logs for environment health and archive Elastic Beanstalk environment health data. For information about enabling enhanced health, see aws:elasticbeanstalk:healthreporting:system."
+}
+
+variable "eb_env_health_streaming_delete_on_terminate" {
+  type        = bool
+  default     = false
+  description = "Whether to delete the log group when the environment is terminated. If false, the health data is kept RetentionInDays days."
+}
+
+variable "eb_env_health_streaming_retention_in_days" {
+  type        = number
+  default     = 7
+  description = "The number of days to keep the archived health data before it expires."
 }
 
 variable "eb_env_name" {
@@ -254,14 +290,16 @@ variable "google_client_id" {
   description = "google client id for google auth (https://developers.google.com/identity/one-tap/web/guides/get-google-api-clientid)"
 }
 
-variable "secret_api_secret" {
+variable "secret_api_key" {
   type        = string
-  description = "an arbitrary secret shared among services to allow admin access in inter-service graphql requests"
+  description = "used to permit services to have superuser powers"
+  default     = "set-me"
 }
 
-variable "secret_jwt_secret" {
+variable "secret_jwt_key" {
   type        = string
-  description = "an arbitrary secret shared among services to encode/decode jwt tokens"
+  description = "used to encrypt jwt tokens"
+  default     = "set-me"
 }
 
 variable "secret_mongo_uri" {
@@ -271,11 +309,35 @@ variable "secret_mongo_uri" {
 
 variable "site_domain_name" {
   type        = string
-  description = "the public domain name for this site, e.g. opentutor.yoursite.org"
+  description = "the public domain name for this site, e.g. dev.opentutor.org"
+}
+
+variable "static_site_alias" {
+  type        = string
+  description = "alias for static site that will serve video etc. By default, generates one based on site_domain_name"
+  default     = ""
+}
+
+variable "static_cors_allowed_origins" {
+  type        = list(string)
+  description = "list of cors allowed origins for static"
+  default     = []
 }
 
 variable "vpc_cidr_block" {
   type        = string
   description = "cidr for the vpc, generally can leave the default unless there is conflict"
-  default     = "10.7.0.0/16"
+  default     = "172.16.0.0/16"
+}
+
+variable "enable_alarms" {
+  type        = bool
+  description = "Enable cloudwatch load balancer alarms"
+  default     = false
+}
+
+variable "alert_topic_arn" {
+  type        = string
+  description = "SNS Topic ARN that will receive alarm notifications"
+  default     = ""
 }
