@@ -25,8 +25,8 @@ function handler(event) {
   if (uri == "/home" || uri == "/home/") {
     request.uri = "/home/index.html";
   }
-  if (uri == "/chat" || uri == "/chat/") {
-    request.uri = "/chat/index.html";
+  if (uri == "/tutor" || uri == "/tutor/") {
+    request.uri = "/tutor/index.html";
   }
   if (uri == "/admin" || uri == "/admin/") {
     request.uri = "/admin/index.html";

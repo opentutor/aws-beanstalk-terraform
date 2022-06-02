@@ -15,7 +15,7 @@ remote_state {
 
     # your AWS_REGION e.g. us-east-1 
     # (generally should be same as one for app)
-    region          = "us-east-1"
+    region          = "us-west-1"
 
     # leave this on
     encrypt         = true
