@@ -2,13 +2,13 @@
 aws_acm_certificate_domain = "opentutor.info"
 
 # e.g. us-east-1
-aws_region = "us-west-1"
+aws_region = "us-east-1"
 
 # usualy name as `aws_acm_certificate_domain` with . at the end
 aws_route53_zone_name = "opentutor.info."
 
 # usually just `a` and `b` for your AWS_REGION, e.g. ["us-east-1a", "us-east-1b"]
-aws_availability_zones = ["us-west-1a", "us-west-1c"]
+aws_availability_zones = ["us-east-1a", "us-east-1c"]
 
 # namespace to prefix all things your app
 eb_env_namespace = "temp"

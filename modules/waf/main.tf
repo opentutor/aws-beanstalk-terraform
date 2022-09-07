@@ -1,5 +1,5 @@
 resource "aws_wafv2_web_acl" "wafv2_webacl" {
-  name  = "mentorpal-${var.environment}-wafv2-webacl"
+  name  = "opentutor-${var.environment}-wafv2-webacl"
   scope = "CLOUDFRONT"
   tags  = var.tags
 
@@ -109,13 +109,13 @@ resource "aws_wafv2_web_acl" "wafv2_webacl" {
 
   visibility_config {
     cloudwatch_metrics_enabled = true
-    metric_name                = "mentorpal-${var.environment}-wafv2-webacl"
+    metric_name                = "opentutor-${var.environment}-wafv2-webacl"
     sampled_requests_enabled   = true
   }
 }
 
 resource "aws_s3_bucket" "s3_logs" {
-  bucket = "mentorpal-aws-waf-logs-${var.aws_region}-${var.environment}"
+  bucket = "opentutor-aws-waf-logs-${var.aws_region}-${var.environment}"
   acl    = "private"
   tags   = var.tags
 }
@@ -132,7 +132,7 @@ data "aws_iam_policy_document" "policy_assume_kinesis" {
 }
 
 resource "aws_iam_role" "firehose_role" {
-  name               = "mentorpal-firehose-aws-waf-logs-${var.aws_region}-${var.environment}"
+  name               = "opentutor-firehose-aws-waf-logs-${var.aws_region}-${var.environment}"
   assume_role_policy = data.aws_iam_policy_document.policy_assume_kinesis.json
   tags               = var.tags
 }
@@ -167,7 +167,7 @@ data "aws_iam_policy_document" "s3_policy_document" {
 }
 
 resource "aws_iam_policy" "s3_policy" {
-  name   = "mentorpal-kinesis-s3-write-policy-${var.environment}"
+  name   = "opentutor-kinesis-s3-write-policy-${var.environment}"
   policy = data.aws_iam_policy_document.s3_policy_document.json
 }
 
@@ -178,7 +178,7 @@ resource "aws_iam_role_policy_attachment" "firehose_s3_policy_attachment" {
 
 resource "aws_kinesis_firehose_delivery_stream" "waf_logs_kinesis_stream" {
   # the name must begin with aws-waf-logs-
-  name        = "aws-waf-logs-kinesis-stream-mentorpal-${var.environment}"
+  name        = "aws-waf-logs-kinesis-stream-opentutor-${var.environment}"
   destination = "s3"
   s3_configuration {
     role_arn           = aws_iam_role.firehose_role.arn
